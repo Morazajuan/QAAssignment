@@ -22,18 +22,20 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Base {
 	public WebDriver driver;
 	//Variables 
-	String url = "https://www.aspiration.com/";
+	public String url = "https://www.aspiration.com/";
+	public ChromeOptions options;
 	String xPathSpendSaveBtn = "//*[@id=\"__next\"]/div/header/ul[1]/li[1]/a";
 	String cardClassName = "plan";
-	public static void main(String[] args) {
+	
+	Base() {
 		// TODO Auto-generated method stub
 
 				//create driver object for Chrome 
 				System.setProperty("webdriver.chrome.driver",
-						"src/test/resources/drivers/chromedriver.exe");//chrome driver (91.0.4), located in resource folder
-				ChromeOptions options = new ChromeOptions();
+						"src/main/resources/drivers/chromedriver.exe");//chrome driver (91.0.4), located in resource folder
+				options = new ChromeOptions();
 				options.addArguments("--start-maximized");
-				WebDriver driver = new ChromeDriver(options);
+				
 				
 	}
 

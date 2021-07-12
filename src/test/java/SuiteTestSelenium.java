@@ -16,16 +16,11 @@ public class SuiteTestSelenium {
 	public ChromeOptions options;
 
 	SuiteTestSelenium(){
-		System.setProperty("webdriver.chrome.driver",
-				"src/main/resources/drivers/chromedriver.exe");//chrome driver (91.0.4), located in resource folder
-		options = new ChromeOptions();
-		options.addArguments("--start-maximized");
+
 	}
 	
 	@Test
 	public void testLandingPage() {
-		driver = new ChromeDriver(options);
-
 		LandingPage landingpage = new LandingPage( driver );
 
 		String originalTitle = landingpage.navigateToSpendAndSave();
@@ -33,15 +28,12 @@ public class SuiteTestSelenium {
 
 		Assert.assertEquals(originalTitle, expectedTitle);
 
-		driver.quit();
+		landingpage.quitDriver();
 
 	}
 
 	@Test
 	public void verifyNumCards() {
-		//create driver object for Chrome 
-		driver = new ChromeDriver(options);
-
 		SpendAndSave spendAndSavePage = new SpendAndSave( driver );
 
 		int originalnumOfCards = spendAndSavePage.numOfCardsAvaiable();
@@ -49,14 +41,12 @@ public class SuiteTestSelenium {
 
 		//num of Cards
 		Assert.assertEquals(originalnumOfCards, excpectednumOfCards);
-		driver.quit();
+		spendAndSavePage.quitDriver();
 
 	}
 
 	@Test
 	public void verifyCardNames() {
-		driver = new ChromeDriver(options);
-
 		SpendAndSave spendAndSavePage = new SpendAndSave( driver );
 
 		List<WebElement> plans  = spendAndSavePage.returnPlans();
@@ -64,66 +54,56 @@ public class SuiteTestSelenium {
 		//num of Cards
 		Assert.assertEquals( spendAndSavePage.getPlanTitle(plans.get(0)), "Aspiration");
 		Assert.assertEquals( spendAndSavePage.getPlanTitle(plans.get(1)), "Aspiration Plus");
-		driver.quit();
+		spendAndSavePage.quitDriver();
 
 	}
 	
 	@Test
 	public void verifyCardprices() {
-		driver = new ChromeDriver(options);
-
 		SpendAndSave spendAndSavePage = new SpendAndSave( driver );
 
 		List<WebElement> plans  = spendAndSavePage.returnPlans();
 
 		Assert.assertEquals( spendAndSavePage.getPlanPrice(plans.get(0)), "Pay What Is Fair(even if it's $0)");
 		Assert.assertEquals( spendAndSavePage.getPlanPrice(plans.get(1)), "$5.99/mo.(billed annually)");
-		driver.quit();
+		spendAndSavePage.quitDriver();
 
 	}
 	
 	
 	@Test
 	public void aspirationModalAppeared() {
-		driver = new ChromeDriver(options);
-
 		SpendAndSave spendAndSavePage = new SpendAndSave( driver );
 
 		List<WebElement> plans  = spendAndSavePage.returnPlans();
 
 		Assert.assertEquals( spendAndSavePage.modalAppear(plans.get(0)) , true );
- 		driver.quit();
+ 		spendAndSavePage.quitDriver();
 
 	}
 	@Test
 	public void aspirationModalEmailInputAppeared() {
-		driver = new ChromeDriver(options);
-
 		SpendAndSave spendAndSavePage = new SpendAndSave( driver );
 
 		List<WebElement> plans  = spendAndSavePage.returnPlans();
 
 		Assert.assertEquals( spendAndSavePage.emailFieldAppear(plans.get(0)) , true );
- 		driver.quit();
+ 		spendAndSavePage.quitDriver();
 
 	}
 	
 	@Test
 	public void aspirationPlusModalAppeared() {
-		driver = new ChromeDriver(options);
-
 		SpendAndSave spendAndSavePage = new SpendAndSave( driver );
 
 		List<WebElement> plans  = spendAndSavePage.returnPlans();
 
 		Assert.assertEquals( spendAndSavePage.modalAppear(plans.get(1)) , true );
- 		driver.quit();
+ 		spendAndSavePage.quitDriver();
 
 	}
 	@Test
 	public void aspirationPlusModalRadioOptions() {
-		driver = new ChromeDriver(options);
-
 		SpendAndSave spendAndSavePage = new SpendAndSave( driver );
 
 		//gets plans from cards
@@ -137,7 +117,7 @@ public class SuiteTestSelenium {
 		
  		Assert.assertEquals( annualRadioOption  , "$71.88 paid once yearly" );
 		Assert.assertEquals( monthlyRadioOption  , "$7.99 paid monthly" );
- 		driver.quit();
+ 		spendAndSavePage.quitDriver();
 
 	}
 

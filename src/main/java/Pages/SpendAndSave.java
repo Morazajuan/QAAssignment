@@ -5,12 +5,14 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class SpendAndSave extends Base {
 
 	public SpendAndSave(WebDriver driver){
-		this.driver = driver;
+		driver = new ChromeDriver(this.options);
 		driver.get( "https://www.aspiration.com/our-products/" );
+		this.driver = driver;
 	}
 	public int numOfCardsAvaiable() {
 		return driver.findElements(By.className(cardClassName)).size();
@@ -38,6 +40,9 @@ public class SpendAndSave extends Base {
 	}
 	public String getRadioOptionText (WebElement option) {
 		return option.findElement( By.tagName( "p" ) ).getText();
+	}
+	public void quitDriver() {
+		this.driver.quit();
 	}
 
 }
